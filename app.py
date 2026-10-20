@@ -5,30 +5,45 @@ import plotly.graph_objects as go
 import random
 
 # ==========================================
-# 1. LIVE OFFICIAL BRANDING & THEME
+# 1. LIVE CYBER-CLINICAL BRANDING & THEME
 # ==========================================
 st.set_page_config(
-    page_title="National Health Surveillance Portal - Kerala Migrants",
-    page_icon="⚕️",
+    page_title="NHMS Kerala - Live Influx Surveillance",
+    page_icon="⚡",
     layout="wide",
     initial_sidebar_state="expanded"
 )
 
-# Professional Institutional CSS Accent Styling
+# Out-of-the-box Neon Teal Healthcare Command Center CSS Theme
 st.markdown("""
     <style>
-    .main-title { font-size:2.5rem !important; color: #042f2e; font-weight: 800; letter-spacing: -0.5px; }
-    .sub-title { font-size:1.1rem !important; color: #475569; margin-bottom: 1.5rem; font-weight: 400; }
-    .metric-box { background: #ffffff; padding: 1.25rem; border-radius: 0.75rem; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05); border-top: 4px solid #0d9488; }
-    .alert-box { background: #fff5f5; padding: 1.25rem; border-radius: 0.75rem; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05); border-top: 4px solid #e11d48; }
+    /* Main App Background Customization */
+    .stApp { background-color: #0b0f19; color: #e2e8f0; }
+    
+    /* Unique Headers */
+    .main-title { font-size:2.4rem !important; color: #2dd4bf; font-weight: 900; letter-spacing: -0.5px; text-transform: uppercase; text-shadow: 0 0 10px rgba(45, 212, 191, 0.2); }
+    .sub-title { font-size:1.05rem !important; color: #94a3b8; margin-bottom: 2rem; font-weight: 400; }
+    
+    /* Futuristic UI Dashboard Elements */
+    .dashboard-card { background: #111827; border: 1px solid #1f2937; padding: 1.5rem; border-radius: 0.75rem; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3); border-top: 4px solid #0d9488; }
+    .alert-card { background: #1e1b4b; border: 1px solid #312e81; padding: 1.5rem; border-radius: 0.75rem; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3); border-top: 4px solid #f43f5e; }
+    
+    /* Unique Treatment History Timeline Node Architecture */
+    .prescription-timeline { border-left: 3px dashed #2dd4bf; padding-left: 1.5rem; margin-left: 0.5rem; position: relative; margin-bottom: 1.5rem; }
+    .prescription-node { background: #111827; border: 1px solid #1f2937; padding: 1.25rem; border-radius: 0.5rem; box-shadow: 2px 4px 10px rgba(0,0,0,0.4); }
+    
+    /* Premium Kerala State Authority Emblem Component */
+    .kerala-branding-box { background: linear-gradient(135deg, #042f2e 0%, #111827 100%); padding: 1.25rem; border-radius: 0.75rem; text-align: center; border: 1px solid #0f766e; box-shadow: 0 0 15px rgba(15, 118, 110, 0.3); margin-bottom: 2rem; }
+    .kerala-emblem-text { font-size: 1.25rem !important; font-weight: 900 !important; color: #2dd4bf !important; letter-spacing: 1.5px; }
+    .kerala-emblem-sub { font-size: 0.7rem !important; color: #64748b; font-weight: 700; text-transform: uppercase; margin-top: 0.2rem; }
     </style>
     """, unsafe_allow_html=True)
 
 # ==========================================
-# 2. CORE DIGITAL ARCHITECTURE (DATA INGESTION)
+# 2. GENERATIVE MEDICAL DATA ARCHITECTURE
 # ==========================================
 @st.cache_data
-def generate_advanced_health_records():
+def generate_surveillance_data():
     districts = ['Ernakulam', 'Trivandrum', 'Kozhikode', 'Palakkad', 'Thrissur', 'Malappuram']
     states = ['West Bengal', 'Assam', 'Bihar', 'Odisha', 'Uttar Pradesh', 'Jharkhand']
     diseases = ['None', 'Malaria', 'Dengue', 'Tuberculosis', 'Filariasis', 'Dyspepsia', 'Food Poisoning']
@@ -37,204 +52,121 @@ def generate_advanced_health_records():
     for i in range(250):
         screening = random.choice(["Clear", "Under Observation", "High Risk Alert"])
         disease = "None" if screening == "Clear" else random.choice(diseases[1:])
+        dist = random.choice(districts)
         
         data.append({
             "National Health ID": f"KER-MIG-2026-{random.randint(1024, 9999)}",
+            "Contact Number": f"987654{i+1000:04d}",
             "Full Name": f"Patient Worker #{i+1:03d}",
             "Age": random.randint(18, 60),
             "State of Origin": random.choice(states),
-            "Kerala Host District": random.choice(districts),
+            "Kerala Host District": dist,
+            "Local Residential Address": f"Building #{random.randint(10, 200)}, Line Labor Camp, Industrial Growth Center, {dist}, Kerala",
             "Vaccination Status": random.choice(["Fully Immunized", "Partially Immunized", "Unvaccinated"]),
             "Clinical Status": screening,
             "Primary Diagnosis": disease,
-            "Last Screening Date": pd.Timestamp('2026-10-19') - pd.Timedelta(days=random.randint(0, 30))
+            "Last Screening Date": pd.Timestamp('2026-10-20') - pd.Timedelta(days=random.randint(0, 30))
         })
     return pd.DataFrame(data)
 
-df_db = generate_advanced_health_records()
+df_db = generate_surveillance_data()
+
+@st.cache_data
+def get_longitudinal_history():
+    return [
+        {"Date": "12 March 2024", "Disease": "Vector-borne Malaria Infection", "Facility": "Dr. K. Raghavan (General Medicine - Ernakulam General Hospital)", "Symptoms": "High Fever with Chills, Chronic Splenomegaly, Fatigue"},
+        {"Date": "22 July 2025", "Disease": "Acute Syndromic Dengue Screening", "Facility": "Dr. S. Meera (Infectious Diseases Dept - Trivandrum Medical College)", "Symptoms": "Retro-orbital Pain, Diffuse Cutaneous Rashes, Low Thrombocyte Count"},
+        {"Date": "05 January 2026", "Disease": "Pulmonary Koch's (Tuberculosis) Observation", "Facility": "Dr. Paul Antony (Pulmonologist - Calicut Chest Hospital)", "Symptoms": "Hemoptysis, Persistent Productive Cough > 3 Weeks, Nocturnal Pyrexia"}
+    ]
 
 # ==========================================
-# 3. HIGH-END INSTITUTIONAL NAVIGATION
+# 3. SIDEBAR TECHNICAL DESIGN
 # ==========================================
 with st.sidebar:
-    st.image("https://icons8.com", width=70)
-    st.markdown("### **NHMS Kerala**\n*Public Health Surveillance Portal*")
+    # Render Out-of-the-box UI Identity Logo Matrix
+    st.markdown("""
+        <div class="kerala-branding-box">
+            <div style="font-size: 2rem; margin-bottom: 0.3rem; filter: drop-shadow(0 0 5px #2dd4bf);">📡</div>
+            <div class="kerala-emblem-text">NHMS KERALA</div>
+            <div class="kerala-emblem-sub">Syndromic Command Console</div>
+        </div>
+        """, unsafe_allow_html=True)
+    
+    ui_mode = st.selectbox("🌐 Interface Localization", ["System English Core", "प्रशासनिक हिंदी विंग", "മലയാളം കൺസോൾ"])
     st.markdown("---")
     
-    ui_mode = st.selectbox("🌐 System Language Access", ["English Portal", "हिंदी प्रशासनिक पोर्टल", "മലയാളം സിസ്റ്റം"])
-    
-    st.markdown("---")
     menu = st.radio(
-        "Administrative Sub-modules:",
-        ["📈 Real-time Epidemic Dashboard", 
-         "🔍 Central Health Registry Search", 
-         "📝 Clinical Intake Form", 
-         "🎯 SDG Metric Compliance Analytics"]
+        "Surveillance Sub-modules:",
+        ["🛸 Real-time Influx Analytics", 
+         "👨‍⚕️ Clinical Practitioner Portal (Doctor Login)", 
+         "🔍 Central Registry Metadata Search", 
+         "📝 Secure EHR Registration Node", 
+         "🎯 SDG Metric Compliance Tracker"]
     )
     st.markdown("---")
-    st.caption("🔒 Secure TLS 1.3 Encrypted Portal Connection")
+    st.caption("🔒 Status: Secure TLS 1.3 Communication Tunnel Active")
+    st.caption("Environment: Production Cloud Web Node")
 
-portal_titles = {
-    "English Portal": "Digital Health Record Management System (NHMS Portal)",
-    "हिंदी प्रशासनिक पोर्टल": "डिजिटल स्वास्थ्य रिकॉर्ड प्रबंधन प्रणाली (राष्ट्रीय पोर्टल)",
-    "മലയാളം സിസ്റ്റം": "ഡിജിറ്റൽ ഹെൽത്ത് റെക്കോർഡ് മാനേജ്‌മെന്റ് സിസ്റ്റം"
+titles = {
+    "System English Core": "Digital Health Record Management System (Kerala Command Portal)",
+    "प्रशासनिक हिंदी विंग": "डिजिटल स्वास्थ्य रिकॉर्ड प्रबंधन प्रणाली (केरल सुरक्षा विंग)",
+    "മലയാളം കൺസോൾ": "ഡിജിറ്റൽ ഹെൽത്ത് റെക്കോർഡ് മാനേജ്‌മെന്റ് സിസ്റ്റം"
 }
 
-st.markdown(f'<div class="main-title">{portal_titles[ui_mode]}</div>', unsafe_allow_html=True)
-st.markdown('<div class="sub-title">Aligned with UN Sustainable Development Goals (SDG 3 & 10) for Interstate Migrant Influx Monitoring.</div>', unsafe_allow_html=True)
+st.markdown(f'<div class="main-title">{titles[ui_mode]}</div>', unsafe_allow_html=True)
+st.markdown('<div class="sub-title">Advanced Data-Science Framework for Interstate Influx Disease Surveillance and Healthcare Inclusion Analytics.</div>', unsafe_allow_html=True)
 st.markdown("---")
 
 # ==========================================
-# SUB-MODULE 1: EPIDEMIC DASHBOARD
+# MODULE 1: INFLUX ANALYTICS (DASHBOARD)
 # ==========================================
-if menu == "📈 Real-time Epidemic Dashboard":
-    st.markdown("### 📈 Active Public Health Surveillance Matrix")
+if menu == "🛸 Real-time Influx Analytics":
+    st.markdown("### 📈 Live Syndromic Surveillance Control Panel")
     
-    m1, m2, m3, m4 = st.columns(4)
-    with m1:
-        st.markdown(f'<div class="metric-box"><h5>Total Registered Migrants</h5><h2>{len(df_db)}</h2></div>', unsafe_allow_html=True)
-    with m2:
-        critical_cases = len(df_db[df_db["Clinical Status"] == "High Risk Alert"])
-        st.markdown(f'<div class="alert-box"><h5>Critical Pathogen Alerts</h5><h2 style="color:#dc2626;">{critical_cases}</h2></div>', unsafe_allow_html=True)
-    with m3:
-        vax_rate = (len(df_db[df_db["Vaccination Status"] == "Fully Immunized"]) / len(df_db)) * 100
-        st.markdown(f'<div class="metric-box" style="border-top-color:#2563eb;"><h5>Overall Immunization Rate</h5><h2 style="color:#2563eb;">{vax_rate:.1f}%</h2></div>', unsafe_allow_html=True)
-    with m4:
-        clear_rate = (len(df_db[df_db["Clinical Status"] == "Clear"]) / len(df_db)) * 100
-        st.markdown(f'<div class="metric-box" style="border-top-color:#16a34a;"><h5>Asymptomatic Log Rate</h5><h2 style="color:#16a34a;">{clear_rate:.1f}%</h2></div>', unsafe_allow_html=True)
+    col_m1, col_m2, col_m3, col_m4 = st.columns(4)
+    with col_m1:
+        st.markdown(f'<div class="dashboard-card"><h5>Total Screened Registries</h5><h2 style="color:#2dd4bf;">{len(df_db)}</h2><p style="color:#64748b; margin:0; font-size:0.8rem;">Active Influx Profiles</p></div>', unsafe_allow_html=True)
+    with col_m2:
+        critical = len(df_db[df_db["Clinical Status"] == "High Risk Alert"])
+        st.markdown(f'<div class="alert-card"><h5>Active Isolation Alerts</h5><h2 style="color:#f43f5e;">{critical}</h2><p style="color:#94a3b8; margin:0; font-size:0.8rem;">Quarantine Orders Active</p></div>', unsafe_allow_html=True)
+    with col_m3:
+        vax = (len(df_db[df_db["Vaccination Status"] == "Fully Immunized"]) / len(df_db)) * 100
+        st.markdown(f'<div class="dashboard-card" style="border-top-color:#3b82f6;"><h5>Overall Immunization Rate</h5><h2 style="color:#3b82f6;">{vax:.1f}%</h2><p style="color:#64748b; margin:0; font-size:0.8rem;">Herd Immunity Target: 95%</p></div>', unsafe_allow_html=True)
+    with col_m4:
+        clear = (len(df_db[df_db["Clinical Status"] == "Clear"]) / len(df_db)) * 100
+        st.markdown(f'<div class="dashboard-card" style="border-top-color:#10b981;"><h5>EHR Health Clearance</h5><h2 style="color:#10b981;">{clear:.1f}%</h2><p style="color:#64748b; margin:0; font-size:0.8rem;">Asymptomatic Diagnostics</p></div>', unsafe_allow_html=True)
         
     st.markdown("###")
     
-    g_col1, g_col2 = st.columns(2)
-    with g_col1:
-        st.markdown("##### 📍 Active Syndromic Influx by District & Severity")
+    g1, g2 = st.columns(2)
+    with g1:
+        st.markdown("##### 🗺️ Geographic Outbreak Severity Across Kerala Districts")
         fig1 = px.histogram(df_db, x="Kerala Host District", color="Clinical Status", barmode="group",
-                            color_discrete_map={"Clear": "#0d9488", "Under Observation": "#fbbf24", "High Risk Alert": "#f43f5e"},
-                            template="simple_white", height=350)
+                            color_discrete_map={"Clear": "#14b8a6", "Under Observation": "#f59e0b", "High Risk Alert": "#f43f5e"},
+                            height=350)
+        fig1.update_layout(paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)', font_color="#94a3b8",
+                           xaxis=dict(showgrid=False), yaxis=dict(showgrid=True, gridcolor="#1f2937"))
         st.plotly_chart(fig1, use_container_width=True)
         
-    with g_col2:
-        st.markdown("##### 🦠 Identified Clinical Diagnoses Summary")
+    with g2:
+        st.markdown("##### 🦠 Vector Spectrum Classification Chart")
         disease_df = df_db[df_db["Primary Diagnosis"] != "None"]["Primary Diagnosis"].value_counts().reset_index()
         fig2 = px.pie(disease_df, values="count", names="Primary Diagnosis", 
-                      color_discrete_sequence=px.colors.sequential.Sunsetdark, hole=0.4, height=350)
+                      color_discrete_sequence=px.colors.sequential.Tealgrn, hole=0.4, height=350)
+        fig2.update_layout(paper_bgcolor='rgba(0,0,0,0)', font_color="#94a3b8")
         st.plotly_chart(fig2, use_container_width=True)
 
 # ==========================================
-# SUB-MODULE 2: CENTRAL REGISTRY SEARCH
+# MODULE 2: CLINICAL PRACTITIONER PORTAL (DOCTOR LOGIN)
 # ==========================================
-elif menu == "🔍 Central Health Registry Search":
-    st.markdown("### 🔍 Centralized Medical Record Verification Engine")
+elif menu == "👨‍⚕️ Clinical Practitioner Portal (Doctor Login)":
+    st.markdown("### 👨‍⚕️ Medical Officer Access Interface")
     
-    search_id = st.text_input("💳 Enter National Health ID or Full Name (e.g., Patient Worker #001):")
-    
-    if search_id:
-        results = df_db[df_db["National Health ID"].str.contains(search_id, case=False) | df_db["Full Name"].str.contains(search_id, case=False)]
-        if not results.empty:
-            st.success(f"Archived Entry Detected: {len(results)} matches identified.")
-            st.dataframe(results, use_container_width=True)
-        else:
-            st.error("No verified medical registry entry found matching parameters.")
-    else:
-        st.dataframe(df_db, use_container_width=True, height=400)
+    if "doc_auth" not in st.session_state:
+        st.session_state.doc_auth = False
 
-# ==========================================
-# SUB-MODULE 3: CLINICAL INTAKE FORM
-# ==========================================
-elif menu == "📝 Clinical Intake Form":
-    st.markdown("### 📝 Secure Electronic Health Record (EHR) Data Entry")
-    
-    with st.form("ehr_intake", clear_on_submit=True):
-        f1, f2, f3 = st.columns(3)
-        with f1:
-            name = st.text_input("Full Legal Name *")
-            age = st.number_input("Age (Years) *", min_value=18, max_value=80, value=28)
-        with f2:
-            origin = st.selectbox("Origin Jurisdiction", ["Assam", "West Bengal", "Bihar", "Odisha", "Uttar Pradesh", "Jharkhand"])
-            destination = st.selectbox("Kerala Allocation District", ["Ernakulam", "Trivandrum", "Kozhikode", "Palakkad", "Thrissur", "Malappuram"])
-        with f3:
-            vax = st.selectbox("Immunization Status Registry", ["Fully Immunized", "Partially Immunized", "Unvaccinated"])
-            lang = st.selectbox("Linguistic Access Matrix", ["Hindi", "Bengali", "Assamese", "Malayalam", "English"])
-            
-        st.markdown("##### 🩺 Point-of-Entry Clinical Symptom Tracking Matrix")
-        s_c1, s_c2, s_c3, s_c4 = st.columns(4)
-        with s_c1: fever = st.checkbox("Pyrexia / Elevated Temperature")
-        with s_c2: cough = st.checkbox("Respiratory Distress / Cough")
-        with s_c3: gastric = st.checkbox("Dyspepsia / Gastrointestinal Issues")
-        with s_c4: rash = st.checkbox("Acute Cutaneous Eruptions / Rashes")
-        
-        btn = st.form_submit_button("💾 Commit Record to Central Cloud Core")
-        
-        if btn:
-            if not name:
-                st.error("Validation Violation: Secure Record Processing requires Full Name input.")
-            else:
-                payload = {
-                    "health_id": f"KER-MIG-2026-{random.randint(1000,9999)}",
-                    "patient_meta": {"name": name, "age": age, "language": lang},
-                    "geographics": {"origin": origin, "host_district": destination},
-                    "clinical_log": {
-                        "immunization": vax,
-                        "symptom_profile": {"pyrexia": fever, "respiratory": cough, "dyspepsia": gastric, "rash": rash}
-                    }
-                }
-                st.toast("EHR Pipeline Ingestion Active!", icon="💾")
-                st.success("Patient Record compiled successfully.")
-                with st.expander("🔗 View Encrypted JSON API Structure"):
-                    st.json(payload)
-
-# ==========================================
-# SUB-MODULE 4: SDG COMPLIANCE ANALYTICS
-# ==========================================
-elif menu == "🎯 SDG Metric Compliance Analytics":
-    st.markdown("### 🎯 UN Sustainable Development Goals (SDG) Alignment Index")
-    
-    c_sdg1, c_sdg2 = st.columns(2)
-    with c_sdg1:
-        st.markdown("#### SDG 3: Good Health and Well-being")
-        fully_immunized = (df_db["Vaccination Status"] == "Fully Immunized").mean() * 100
-        st.metric("Fully immunized patients", f"{fully_immunized:.1f}%")
-
-        vaccination_counts = (
-            df_db["Vaccination Status"]
-            .value_counts()
-            .reindex(
-                ["Fully Immunized", "Partially Immunized", "Unvaccinated"],
-                fill_value=0,
-            )
-            .rename_axis("Vaccination Status")
-            .reset_index(name="Patients")
-        )
-        vaccination_chart = px.bar(
-            vaccination_counts,
-            x="Vaccination Status",
-            y="Patients",
-            color="Vaccination Status",
-            title="Immunization status of registered migrants",
-            color_discrete_sequence=px.colors.sequential.Teal,
-            template="simple_white",
-        )
-        st.plotly_chart(vaccination_chart, use_container_width=True)
-
-    with c_sdg2:
-        st.markdown("#### SDG 10: Reduced Inequalities")
-        origin_counts = (
-            df_db["State of Origin"]
-            .value_counts()
-            .rename_axis("State of Origin")
-            .reset_index(name="Registered Patients")
-        )
-        origin_chart = px.bar(
-            origin_counts,
-            x="State of Origin",
-            y="Registered Patients",
-            title="Registered patients by state of origin",
-            color="Registered Patients",
-            color_continuous_scale="Teal",
-            template="simple_white",
-        )
-        st.plotly_chart(origin_chart, use_container_width=True)
-        st.caption(
-            "Origin distribution shows representation in this registry; it does "
-            "not measure population coverage or inequality by itself."
-        )
+    if not st.session_state.doc_auth:
+        col_l, col_r = st.columns(2)
+        with col_l:
+            st.markdown('<div class="dashboard-card">', unsafe_allow_html=True)
+            st.info("🔒 Secure Portal Access Restricted to DHS Registered Clinical Practitioners.")
